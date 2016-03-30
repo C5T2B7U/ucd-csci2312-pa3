@@ -147,6 +147,7 @@ namespace Clustering
 			__points = NULL;
 			__dimensionality = arg_Cluster.getDimensionality();
 			__id = arg_Cluster.getId();
+			centroid.compute();
 		}
 		// ELSE DO CONSTRUCTOR
 		else
@@ -178,8 +179,9 @@ namespace Clustering
 				++__size;
 
 				prev_newCluster = cursor_newCluster;
-//				__points = arg_Cluster.__points;
 			}
+
+			centroid.compute();
 		}
 	}
 
@@ -260,6 +262,7 @@ namespace Clustering
 
 			}
 
+			centroid.compute();
 		}
 	}
 
@@ -335,11 +338,12 @@ namespace Clustering
 
 		PointPtr newPoint;
 		newPoint = new Point(arg_Point);
+		LNodePtr newNode;
 
-
+		// EMPTY CLUSTER
 		if (__points == NULL)
 		{
-			LNodePtr newNode;
+
 			newNode = new LNode(*newPoint, NULL);
 
 			__points  = newNode;
@@ -349,6 +353,7 @@ namespace Clustering
 			// END FUNCTION
 		}
 		else
+		// NON-EMPTY CLUSTER
 		{
 			// MUST BUILD
 			// INSERT IN LEXICOGRAPHIC ORDER
@@ -389,7 +394,6 @@ namespace Clustering
 			if (insertBefore == __points)
 			{
 				// REPLACE HEAD NODE
-				LNodePtr newNode;
 				newNode = new LNode(*newPoint, __points);
 
 				__points  = newNode;
@@ -398,7 +402,6 @@ namespace Clustering
 			}
 			else
 			{
-				LNodePtr newNode;
 				newNode = new LNode(*newPoint, insertBefore);
 
 				prev->next = newNode;
@@ -539,6 +542,29 @@ namespace Clustering
 
 	void Cluster::pickCentroids(unsigned int k, Point **pointArray) // pick k initial centroids
 	{
+
+// When k >= __size (the size of the Cluster) the first k elements of the
+// array should be set to the Points of the Cluster and the rest should be set
+// to infinite points. The Point::Point(const Point &) operator should be used
+// to set the centroids.
+
+// When k < __size k points should be picked from the cluster to set as
+// initial centroids. The algorithm is up to you and you should start by just
+// picking the first k points to get things going. Eventually, you might need
+// to pick your centroids better to be able to finish each K-means clustering
+// test within 20 iterations. Hint: The best performance is achieved by
+// pickeing points that are far away from each other. You can loop through k
+// iterations of an algorithm that picks the farthest point from the set of
+// points already picked.
+
+		int index;
+
+		for (index = 0; index < k; ++index)
+			*pointArray[index] = __points[index].point;
+
+		if (k >= __size)
+			for (; index < __size; ++index)
+				*pointArray[index] = std::numeric_limits<double>::max();
 
 	}
 
