@@ -37,7 +37,7 @@ namespace Clustering {
         class Centroid {
             unsigned int __dimensions;
             Point __p;
-            bool __valid;
+             bool __valid;
             const Cluster &__c;
 
         public:
@@ -117,6 +117,28 @@ namespace Clustering {
         // - Friends
         friend const Cluster operator+(const Cluster &lhs, const Point &rhs);
         friend const Cluster operator-(const Cluster &lhs, const Point &rhs);
+
+
+
+
+
+// Move class
+//
+//        This class is a very simple public inner class of class Cluster.
+// This means that objects of class Move can be declared in any scope by using
+// the Cluster::Move type.
+//
+// This class is used to encapsulate the indivisible operation of adding a
+// Point from one Cluster after removing it from another. In our clustering
+// paradigm, all Point objects have to "belong" to Cluster objects, and do not
+// make sense outside of them.
+//
+// Implement the Cluster::Move::perform method and use it in the
+// implementation of KMeans::run.
+//
+// Note: This method should invalidate the centroids of both clusters.
+
+
 
 
         class Move {
