@@ -22,6 +22,10 @@ namespace Clustering
 	const char Cluster::POINT_CLUSTER_ID_DELIM = ':';
 
 
+	unsigned int Cluster::__idGenerator = 0;
+
+
+
 	LNode::LNode(const Point &p, LNodePtr n) : point(p), next(n) {}
 
 
@@ -113,6 +117,7 @@ namespace Clustering
 		__size = 0;
 		__points = NULL;
 		__dimensionality = d;
+		__id = __idGenerator++;
 
 	}
 
@@ -141,12 +146,14 @@ namespace Clustering
 			__size = 0;
 			__points = NULL;
 			__dimensionality = arg_Cluster.getDimensionality();
+			__id = arg_Cluster.getId();
 		}
 		// ELSE DO CONSTRUCTOR
 		else
 		{
 			__size = 0;
 			__dimensionality = arg_Cluster.getDimensionality();
+			__id = arg_Cluster.getId();
 
 			// DO MEMBERWISE ASSIGNMENT
 			LNodePtr cursor_oldCluster = arg_Cluster.__points;
@@ -217,8 +224,11 @@ namespace Clustering
 			// SET __SIZE = 0
 			__points = NULL;
 			__size = 0;
+			__dimensionality = arg_Cluster.getDimensionality();
+			__id = arg_Cluster.getId();
 
 			// DO MEMBERWISE ASSIGNMENT
+			if (arg_Cluster.__points != NULL)
 			{
 				// DO MEMBERWISE ASSIGNMENT
 				//		LNodePtr prev_oldCluster = arg_Cluster.__points;

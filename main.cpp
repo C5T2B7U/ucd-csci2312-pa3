@@ -57,8 +57,8 @@ int main() {
     test_cluster_CAO(ec, NumIters);
     test_cluster_SAO(ec, NumIters);
     test_cluster_centroid(ec, NumIters);
-//    test_cluster_id(ec, NumIters);
-//    test_cluster_initselection(ec, NumIters);
+    test_cluster_id(ec, NumIters);
+    test_cluster_initselection(ec, NumIters);
 //    test_cluster_IO(ec, NumIters);
 //
 //    // kmeans tests

@@ -26,6 +26,7 @@ namespace Clustering {
 	unsigned int Point::__idGen = 0;
 
 
+
 	void Point::rewindIdGen()
 	{
 		--__idGen;
@@ -69,7 +70,7 @@ namespace Clustering {
 				// DO NOTHING
 			}
 			// ELSE DO CONSTRUCTOR
-			else if (&arg_Point != NULL)
+			else if (&arg_Point.__values != NULL)
 			{
 ///*DEBUG*/	std::cout << "ID = " << arg_Point.__id << "    DIM = " << arg_Point.__dim << "\n";
 				// SEGFAULT HERE
@@ -79,6 +80,11 @@ namespace Clustering {
 
 				for (int index = 0; index < __dim; index++)
 					setValue(index, arg_Point.getValue(index));
+			}
+			else
+			{
+				__id = arg_Point.__id;
+				__dim = arg_Point.__dim;
 			}
 		}
 
