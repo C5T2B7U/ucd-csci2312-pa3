@@ -599,13 +599,13 @@ namespace Clustering
 
 		if (k > __size)
 		{
-			for (index = 0; index < k; ++index)
+			for (index = 0; index < __size; ++index)
 			{
 				*pointArray[index] = Point(cursor->point);
-				cursor = cursor->next;
+				if (cursor != NULL) cursor = cursor->next;
 			}
 
-			for (; index < __size; ++index)
+			for (; index < k; ++index)
 				*pointArray[index] = Point(infPoint);
 		}
 	}
