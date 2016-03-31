@@ -26,7 +26,11 @@ namespace Clustering
 
 
 
-	LNode::LNode(const Point &p, LNodePtr n) : point(p), next(n) {}
+	LNode::LNode(const Point &p, LNodePtr n) : point(p), next(n)
+	{
+		point = p;
+		next = n;
+	}
 
 
 
@@ -355,14 +359,14 @@ namespace Clustering
 		else
 		// NON-EMPTY CLUSTER
 		{
-			// MUST BUILD
 			// INSERT IN LEXICOGRAPHIC ORDER
 			LNodePtr prev;
 			LNodePtr cursor;
 			prev = __points;
 			cursor = prev->next;
 
-			LNodePtr insertBefore = NULL;
+			LNodePtr insertBefore;
+			insertBefore = NULL;
 
 
 			if (cursor == NULL)
@@ -557,15 +561,53 @@ namespace Clustering
 // iterations of an algorithm that picks the farthest point from the set of
 // points already picked.
 
-		int index;
 
-		for (index = 0; index < k; ++index)
-			*pointArray[index] = __points[index].point;
+		unsigned int index;
 
-		if (k >= __size)
+
+		Point infPoint(__dimensionality);
+			for (int index = 0; index < __dimensionality; ++index)
+				infPoint[index] = std::numeric_limits<double>::max();
+
+		LNodePtr cursor = NULL;
+
+
+		cursor = __points;
+
+
+		if (k == __size)
+		{
+			for (index = 0; index < k; ++index)
+			{
+				*pointArray[index] = Point(cursor->point);
+				cursor = cursor->next;
+			}
+		}
+
+
+
+		if (k < __size)
+		{
+			for (index = 0; index < k; ++index)
+			{
+				*pointArray[index] = Point(cursor->point);
+				cursor = cursor->next;
+			}
+		}
+
+
+
+		if (k > __size)
+		{
+			for (index = 0; index < k; ++index)
+			{
+				*pointArray[index] = Point(cursor->point);
+				cursor = cursor->next;
+			}
+
 			for (; index < __size; ++index)
-				*pointArray[index] = std::numeric_limits<double>::max();
-
+				*pointArray[index] = Point(infPoint);
+		}
 	}
 
 

@@ -101,6 +101,8 @@ namespace Clustering {
 			}
 			else
 			{
+				__id = arg_Point.getId();
+
 				for (int index = 0; index < __dim; ++index)
 				{
 					this->__values[index] = arg_Point.getValue(index);
@@ -319,7 +321,6 @@ namespace Clustering {
 				}
 			}
 			else throw DimensionalityMismatchEx(arg_Point_left.getDims(), arg_Point_right.getDims());
-
 
 			return result;
 		}

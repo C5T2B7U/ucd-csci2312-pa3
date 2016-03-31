@@ -1463,9 +1463,7 @@ void test_cluster_copying(ErrorContext &ec, unsigned int numRuns) {
                     p2(10),
                     p3(10);
             Cluster c1(10);
-            c1.add(p1);
-            c1.add(p2);
-            c1.add(p3);
+            c1.add(p1); c1.add(p2); c1.add(p3);
             Cluster c2(c1);
 
             pass = (c1 == c2);
